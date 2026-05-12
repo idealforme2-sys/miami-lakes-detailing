@@ -2,7 +2,9 @@
   "name": "miami-lakes-detailing",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "echo 'Build successful'"
+    "dev": "node server.mjs",
+    "build": "node scripts/build.mjs"
   }
 }
