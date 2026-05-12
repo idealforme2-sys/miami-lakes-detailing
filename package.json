@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
+    "build": "echo 'Static site, no build required'",
     "check": "node --check server.mjs"
   }
 }
