@@ -1,3 +1,6 @@
 *.log
 .playwright-mcp/
 node_modules/
+server.mjs
+package.json
+vercel.json
