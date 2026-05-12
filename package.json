@@ -3,9 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "node server.mjs",
-    "build": "echo 'Static site, no build required'",
-    "check": "node --check server.mjs"
-  }
+  "scripts": {}
 }
