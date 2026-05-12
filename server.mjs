@@ -29,7 +29,8 @@ function safePath(base, requestPath) {
 async function resolveFile(url) {
   const rootPath = safePath(root, url);
   const publicPath = safePath(join(root, "public"), url);
-  const candidates = [rootPath, publicPath, join(root, "index.html")].filter(Boolean);
+  const fallback = join(root, "public", "index.html");
+  const candidates = [publicPath, rootPath, fallback].filter(Boolean);
 
   for (const candidate of candidates) {
     if (!existsSync(candidate)) continue;
@@ -37,13 +38,18 @@ async function resolveFile(url) {
     if (info.isFile()) return candidate;
   }
 
-  return join(root, "index.html");
+  return fallback;
 }
 
 createServer(async (request, response) => {
   try {
     const filePath = await resolveFile(request.url || "/");
-    response.writeHead(200, { "Content-Type": types[extname(filePath)] || "application/octet-stream" });
+    response.writeHead(200, {
+      "Content-Type": types[extname(filePath)] || "application/octet-stream",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      "Pragma": "no-cache",
+      "Expires": "0",
+    });
     createReadStream(filePath).pipe(response);
   } catch (error) {
     response.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
