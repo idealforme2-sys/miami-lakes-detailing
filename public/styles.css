@@ -625,7 +625,7 @@ h1 span {
 .signal-rail {
   width: calc(100% + 10vw);
   margin-left: -5vw;
-  transform: rotate(2.15deg) scale(1.04);
+  transform: rotate(2.6deg) scale(1.045);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -1402,7 +1402,7 @@ h1 span {
 .preloader-progress {
   position: relative;
   width: min(228px, 58vw);
-  height: 8px;
+  height: 10px;
   margin-top: 18px;
   overflow: hidden;
   border-radius: 999px;
@@ -1437,7 +1437,7 @@ h1 span {
   box-shadow:
     0 0 18px rgba(0, 229, 255, 0.3),
     0 0 26px rgba(255, 47, 179, 0.18);
-  transition: width 140ms linear;
+  transition: width 120ms linear;
   will-change: width;
 }
 
@@ -1450,18 +1450,6 @@ h1 span {
     linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 62%);
   mix-blend-mode: screen;
   opacity: 0.64;
-}
-
-.preloader-progress span::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  left: -28%;
-  width: 26%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
-  filter: blur(1px);
-  animation: loaderShimmer 1.05s linear infinite;
 }
 
 @keyframes crystalGlow {
@@ -1496,16 +1484,6 @@ h1 span {
 
   50% {
     filter: drop-shadow(0 0 28px rgba(0, 229, 255, 0.32));
-  }
-}
-
-@keyframes loaderShimmer {
-  0% {
-    transform: translate3d(-130%, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(560%, 0, 0);
   }
 }
 
@@ -2851,7 +2829,7 @@ h1 span {
   .signal-rail {
     width: calc(100% + 14vw);
     margin-left: -7vw;
-    transform: rotate(2.6deg) scale(1.06);
+    transform: rotate(3.1deg) scale(1.07);
   }
 
   .why-panel ul {

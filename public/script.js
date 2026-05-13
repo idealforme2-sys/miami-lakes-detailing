@@ -7,31 +7,53 @@ const packageSelect = document.querySelector("[data-package-select]");
 const quoteForm = document.querySelector("[data-quote-form]");
 const formNote = document.querySelector("[data-form-note]");
 document.documentElement.dataset.motion = "full";
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const forceFullMotion = document.documentElement.dataset.motion === "full";
+const prefersReducedMotion = forceFullMotion ? false : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let revealInitialized = false;
-let preloaderFinished = false;
 let preloaderValue = 0;
 let preloaderFrame;
+let preloaderHidden = false;
+let preloaderLoadedAt = null;
+const preloaderStartedAt = window.performance.now();
+const PRELOADER_MIN_DURATION = 2200;
+const PRELOADER_FINISH_DURATION = 520;
 
 const setPreloaderProgress = (value) => {
   preloaderBar?.style.setProperty("width", `${Math.max(0, Math.min(100, value)).toFixed(2)}%`);
 };
 
 const animatePreloaderProgress = () => {
-  const target = preloaderFinished ? 100 : 88;
-  const easing = preloaderFinished ? 0.18 : 0.04;
+  const now = window.performance.now();
+  const elapsed = now - preloaderStartedAt;
+  let target = Math.min(90, (elapsed / PRELOADER_MIN_DURATION) * 90);
 
-  preloaderValue += (target - preloaderValue) * easing;
+  if (preloaderLoadedAt !== null) {
+    const finishElapsed = Math.max(0, now - preloaderLoadedAt);
+    const finishRatio = Math.min(1, finishElapsed / PRELOADER_FINISH_DURATION);
+    target = 90 + finishRatio * 10;
+  }
 
-  if (preloaderFinished && target - preloaderValue < 0.4) {
+  preloaderValue += (target - preloaderValue) * 0.18;
+
+  if (preloaderLoadedAt !== null && target >= 100 && 100 - preloaderValue < 0.18) {
     preloaderValue = 100;
   }
 
   setPreloaderProgress(preloaderValue);
 
-  if (!preloaderFinished || preloaderValue < 99.98) {
-    preloaderFrame = window.requestAnimationFrame(animatePreloaderProgress);
+  const minimumElapsed = elapsed >= PRELOADER_MIN_DURATION;
+  const finishElapsed = preloaderLoadedAt !== null && now - preloaderLoadedAt >= PRELOADER_FINISH_DURATION;
+
+  if (preloaderLoadedAt !== null && minimumElapsed && finishElapsed && preloaderValue >= 99.94) {
+    preloaderHidden = true;
+    preloader?.classList.add("is-hidden");
+    window.setTimeout(() => {
+      window.requestAnimationFrame(startExperience);
+    }, 240);
+    return;
   }
+
+  preloaderFrame = window.requestAnimationFrame(animatePreloaderProgress);
 };
 
 const syncHeader = () => {
@@ -419,16 +441,16 @@ if (preloader && !prefersReducedMotion) {
 }
 
 window.addEventListener("load", () => {
-  preloaderFinished = true;
-
-  const finishLoader = () => {
-    window.cancelAnimationFrame(preloaderFrame);
+  if (prefersReducedMotion) {
     setPreloaderProgress(100);
     preloader?.classList.add("is-hidden");
     window.setTimeout(() => {
       window.requestAnimationFrame(startExperience);
-    }, 240);
-  };
+    }, 140);
+    return;
+  }
 
-  window.setTimeout(finishLoader, prefersReducedMotion ? 220 : 520);
+  if (!preloaderHidden) {
+    preloaderLoadedAt = window.performance.now();
+  }
 });
