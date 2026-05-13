@@ -594,7 +594,7 @@ h1 span {
 .signal-strip {
   position: relative;
   overflow: hidden;
-  padding: 24px 0;
+  padding: 34px 0;
   border-block: 1px solid rgba(255, 255, 255, 0.1);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 42%, rgba(0, 0, 0, 0.24)),
@@ -623,9 +623,9 @@ h1 span {
 }
 
 .signal-rail {
-  width: calc(100% + 16vw);
-  margin-left: -8vw;
-  transform: rotate(4.8deg) scale(1.12) skewX(-6deg);
+  width: calc(100% + 22vw);
+  margin-left: -11vw;
+  transform: rotate(6deg) scale(1.16) skewX(-8deg);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -659,6 +659,7 @@ h1 span {
   white-space: nowrap;
   text-transform: uppercase;
   text-shadow: 0 0 18px rgba(0, 229, 255, 0.18);
+  transform: skewX(-18deg);
 }
 
 .signal-group span::after {
@@ -1402,25 +1403,25 @@ h1 span {
 .preloader-loader {
   display: grid;
   grid-auto-flow: column;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .preloader-loader span {
   position: relative;
-  width: 34px;
-  height: 12px;
+  width: 18px;
+  height: 26px;
   overflow: hidden;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.04),
-    0 10px 22px rgba(0, 0, 0, 0.16);
-  opacity: calc(0.22 + (var(--segment-fill, 0) * 0.78));
-  transform: scale(calc(0.72 + (var(--segment-fill, 0) * 0.28)));
-  transform-origin: center;
-  transition: opacity 160ms ease, transform 160ms ease;
+    0 10px 24px rgba(0, 0, 0, 0.16);
+  opacity: calc(0.24 + (var(--segment-fill, 0) * 0.76));
+  transform: skewX(-16deg) translateY(calc((1 - var(--segment-fill, 0)) * 6px)) scale(calc(0.74 + (var(--segment-fill, 0) * 0.26)));
+  transform-origin: center bottom;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .preloader-loader span::before {
@@ -1428,25 +1429,21 @@ h1 span {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgba(0, 229, 255, 0.96), rgba(116, 248, 255, 0.98) 34%, rgba(255, 47, 179, 0.94));
-  transform: scaleX(var(--segment-fill, 0));
-  transform-origin: left center;
-  transition: transform 140ms linear;
+  background: linear-gradient(180deg, rgba(116, 248, 255, 0.98), rgba(0, 229, 255, 0.92) 46%, rgba(255, 47, 179, 0.9));
+  transform: scaleY(var(--segment-fill, 0));
+  transform-origin: center bottom;
+  transition: transform 150ms linear;
 }
 
 .preloader-loader span::after {
   content: "";
   position: absolute;
-  top: -3px;
-  right: -8px;
-  width: 16px;
-  height: calc(100% + 6px);
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.82), rgba(116, 248, 255, 0.34) 58%, transparent 76%);
-  filter: blur(3px);
-  opacity: calc(var(--segment-fill, 0) * 0.8);
-  transform: scale(calc(0.6 + (var(--segment-fill, 0) * 0.4)));
-  transition: opacity 140ms linear, transform 140ms linear;
+  inset: 2px 2px auto;
+  height: 40%;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent);
+  opacity: calc(var(--segment-fill, 0) * 0.78);
+  transition: opacity 150ms linear;
 }
 
 @keyframes crystalGlow {
@@ -1784,15 +1781,6 @@ h1 span {
   animation: kickerIgnite 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.service-card.reveal-ready.is-visible img,
-.package-card.reveal-ready.is-visible .package-price,
-.review-card.reveal-ready.is-visible p,
-.why-panel.reveal-ready.is-visible,
-.map-frame.reveal-ready.is-visible,
-.quote-form.reveal-ready.is-visible {
-  animation: panelBloom 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
 @keyframes showcaseMediaBloom {
   from {
     opacity: 0.24;
@@ -1878,20 +1866,6 @@ h1 span {
     opacity: 1;
     text-shadow: 0 0 22px rgba(0, 229, 255, 0.18);
     transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes panelBloom {
-  from {
-    opacity: 0;
-    filter: saturate(0.88) brightness(0.9) blur(6px);
-    transform: translate3d(0, 20px, 0) scale(0.985);
-  }
-
-  to {
-    opacity: 1;
-    filter: saturate(1) brightness(1) blur(0);
-    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -2653,6 +2627,72 @@ h1 span {
   transform: translate3d(0, 0, 0) scale(1) !important;
 }
 
+.section-heading.reveal-ready,
+.showcase-heading.reveal-ready,
+.word-heading.reveal-ready,
+.faq-heading.reveal-ready,
+.booking-copy.reveal-ready,
+.final-cta-inner.reveal-ready,
+.why-copy.reveal-ready,
+.finish-copy.reveal-ready,
+.area-copy.reveal-ready {
+  transform: translate3d(-18px, 28px, 0);
+}
+
+.showcase-card.reveal-ready,
+.service-card.reveal-ready,
+.package-card.reveal-ready,
+.review-card.reveal-ready,
+.faq-item.reveal-ready,
+.quote-form.reveal-ready,
+.map-frame.reveal-ready,
+.finish-media.reveal-ready,
+.why-panel li.reveal-ready {
+  transform: translate3d(0, 34px, 0) scale(0.975);
+}
+
+.service-grid.reveal-ready,
+.package-grid.reveal-ready,
+.review-grid.reveal-ready,
+.faq-list.reveal-ready,
+.finish-section.reveal-ready,
+.booking-section.reveal-ready,
+.service-area.reveal-ready,
+.why-panel.reveal-ready {
+  transform: translate3d(0, 30px, 0) scale(0.986);
+}
+
+#services.reveal-ready,
+#finish.reveal-ready,
+#packages.reveal-ready,
+#area.reveal-ready,
+#faq.reveal-ready,
+#booking.reveal-ready,
+.showcase-section.reveal-ready,
+.why-section.reveal-ready,
+.word-section.reveal-ready,
+.final-cta.reveal-ready {
+  transform: translate3d(0, 24px, 0) scale(0.992);
+}
+
+.hero-actions .button.reveal-ready,
+.hero-stats div.reveal-ready,
+.footer-brand p.reveal-ready,
+.footer-brand .footer-social.reveal-ready,
+.footer-links a.reveal-ready,
+.footer-links span.reveal-ready,
+.footer-bottom > *.reveal-ready {
+  transform: translate3d(0, 20px, 0);
+}
+
+.signal-rail.reveal-ready {
+  transform: translate3d(0, 22px, 0) rotate(6deg) scale(1.16) skewX(-8deg);
+}
+
+.signal-rail.reveal-ready.is-visible {
+  transform: rotate(6deg) scale(1.16) skewX(-8deg) !important;
+}
+
 .package-card.reveal-ready.is-visible {
   transform: translateY(var(--lift, -8px)) rotate(var(--base-rotate, 1.2deg)) rotateX(0deg) rotateY(0deg) !important;
 }
@@ -2822,7 +2862,7 @@ h1 span {
   .signal-rail {
     width: calc(100% + 18vw);
     margin-left: -9vw;
-    transform: rotate(5.1deg) scale(1.12) skewX(-6deg);
+    transform: rotate(7deg) scale(1.16) skewX(-8deg);
   }
 
   .why-panel ul {
@@ -2867,13 +2907,13 @@ h1 span {
   }
 
   .preloader-loader {
-    gap: 8px;
-    margin-top: 18px;
+    gap: 10px;
+    margin-top: 20px;
   }
 
   .preloader-loader span {
-    width: 28px;
-    height: 11px;
+    width: 16px;
+    height: 22px;
   }
 
   h1 {
