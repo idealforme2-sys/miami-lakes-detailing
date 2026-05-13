@@ -1406,23 +1406,11 @@ h1 span {
   margin-top: 18px;
   overflow: hidden;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-    rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow:
-    inset 0 1px rgba(255, 255, 255, 0.08),
-    0 12px 28px rgba(0, 0, 0, 0.2);
-}
-
-.preloader-progress::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 42%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 10px, transparent 10px 20px);
-  opacity: 0.9;
+    inset 0 1px rgba(255, 255, 255, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.18);
 }
 
 .preloader-progress span {
@@ -1444,12 +1432,23 @@ h1 span {
 .preloader-progress span::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.2) 0 10px, rgba(255, 255, 255, 0.04) 10px 20px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 62%);
-  mix-blend-mode: screen;
-  opacity: 0.64;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 68%);
+  opacity: 0.52;
+}
+
+.preloader-progress span::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -8px;
+  width: 18px;
+  height: calc(100% + 6px);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(116, 248, 255, 0.38) 58%, transparent 76%);
+  filter: blur(3px);
+  opacity: 0.7;
 }
 
 @keyframes crystalGlow {
@@ -1764,6 +1763,31 @@ h1 span {
   animation: showcaseArrowLift 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.showcase-card.reveal-ready.is-visible,
+.service-card.reveal-ready.is-visible,
+.package-card.reveal-ready.is-visible,
+.review-card.reveal-ready.is-visible,
+.faq-item.reveal-ready.is-visible,
+.map-frame.reveal-ready.is-visible,
+.quote-form.reveal-ready.is-visible,
+.why-panel li.reveal-ready.is-visible,
+.finish-media.reveal-ready.is-visible {
+  animation: cardRise 0.96s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+#services.reveal-ready.is-visible,
+#finish.reveal-ready.is-visible,
+#packages.reveal-ready.is-visible,
+#area.reveal-ready.is-visible,
+#faq.reveal-ready.is-visible,
+#booking.reveal-ready.is-visible,
+.showcase-section.reveal-ready.is-visible,
+.why-section.reveal-ready.is-visible,
+.word-section.reveal-ready.is-visible,
+.final-cta.reveal-ready.is-visible {
+  animation: sectionSettle 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .section-heading.reveal-ready.is-visible h2,
 .showcase-heading.reveal-ready.is-visible h2,
 .word-heading.reveal-ready.is-visible h2,
@@ -1895,6 +1919,34 @@ h1 span {
     opacity: 1;
     filter: saturate(1) brightness(1) blur(0);
     transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    filter: saturate(0.84) brightness(0.88) blur(7px);
+    transform: translate3d(0, 26px, 0) scale(0.972);
+  }
+
+  to {
+    opacity: 1;
+    filter: saturate(1) brightness(1) blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes sectionSettle {
+  from {
+    opacity: 0;
+    filter: blur(10px) brightness(0.92);
+    transform: translate3d(0, 34px, 0);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
