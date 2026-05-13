@@ -6,7 +6,7 @@ const packageSelect = document.querySelector("[data-package-select]");
 const quoteForm = document.querySelector("[data-quote-form]");
 const formNote = document.querySelector("[data-form-note]");
 document.documentElement.dataset.motion = "full";
-const prefersReducedMotion = false;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let revealInitialized = false;
 
 const syncHeader = () => {
@@ -81,8 +81,7 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
       const nextMedia = document.createElement(shouldUseImage ? "img" : "video");
       nextMedia.dataset.showcaseMedia = "";
       nextMedia.className = media.className;
-      nextMedia.style.opacity = "0";
-      nextMedia.style.transform = "scale(1.08)";
+      nextMedia.style.opacity = "0.35";
 
       if (!shouldUseImage) {
         nextMedia.muted = true;
@@ -94,8 +93,7 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
       media = nextMedia;
       bindVideoEnd();
     } else {
-      media.style.opacity = "0";
-      media.style.transform = "scale(1.08)";
+      media.style.opacity = "0.35";
     }
 
     window.setTimeout(() => {
@@ -108,7 +106,6 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
         media.play?.().catch(() => {});
       }
       media.style.opacity = "1";
-      media.style.transform = "scale(1)";
       counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
       scheduleNextImage();
     }, 160);
@@ -227,44 +224,48 @@ quoteForm?.addEventListener("submit", (event) => {
   }
 });
 
-const revealGroups = [
-  { selector: ".section-heading, .showcase-heading, .word-heading, .faq-heading, .booking-copy, .final-cta-inner", type: "heading" },
-  { selector: ".section-kicker, .eyebrow", type: "kicker" },
-  { selector: ".showcase-card", type: "showcase" },
-  { selector: ".service-card, .package-card, .review-card, .why-panel li, .faq-item", type: "card" },
-  { selector: ".finish-media, .map-frame, .quote-form, .why-panel", type: "media" },
-  { selector: ".finish-copy, .why-copy, .area-copy, .footer-brand p", type: "copy" },
-  { selector: ".finish-list span, .area-facts span, .hero-actions .button, .hero-stats div, .signal-rail, .footer-logo-image, .footer-brand .footer-social, .footer-links a, .footer-links span, .footer-bottom > *", type: "small" },
-];
-
-const revealItems = [];
-const seenRevealItems = new Set();
-
-revealGroups.forEach((group) => {
-  document.querySelectorAll(group.selector).forEach((item) => {
-    if (seenRevealItems.has(item)) {
-      return;
-    }
-
-    seenRevealItems.add(item);
-    item.dataset.revealType = group.type;
-    revealItems.push(item);
-  });
-});
-
-const sectionRevealItems = document.querySelectorAll(
+const revealItems = document.querySelectorAll(
   [
-    ".signal-strip",
+    ".section-kicker",
+    ".eyebrow",
+    ".section-heading",
+    ".showcase-heading",
     ".showcase-section",
+    ".showcase-card",
     "#services",
+    ".service-card",
     "#finish",
+    ".finish-media",
+    ".finish-copy",
     ".why-section",
+    ".why-copy",
+    ".why-panel",
+    ".why-panel li",
     "#packages",
+    ".package-card",
     ".word-section",
+    ".word-heading",
+    ".review-card",
     "#area",
+    ".area-copy",
+    ".area-facts span",
+    ".map-frame",
     "#faq",
+    ".faq-heading",
+    ".faq-item",
     "#booking",
+    ".booking-copy",
+    ".quote-form",
     ".final-cta",
+    ".final-cta-inner",
+    ".hero-actions .button",
+    ".hero-stats div",
+    ".signal-rail",
+    ".footer-brand p",
+    ".footer-brand .footer-social",
+    ".footer-links a",
+    ".footer-links span",
+    ".footer-bottom > *",
   ].join(",")
 );
 
@@ -274,12 +275,8 @@ const prepareRevealSystem = () => {
   }
 
   revealItems.forEach((item, index) => {
-    item.classList.add("reveal-ready", `reveal-${item.dataset.revealType}`);
+    item.classList.add("reveal-ready");
     item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
-  });
-
-  sectionRevealItems.forEach((item) => {
-    item.classList.add("section-lux-ready");
   });
 };
 
@@ -288,19 +285,10 @@ const revealInViewport = () => {
 
   revealItems.forEach((item) => {
     const rect = item.getBoundingClientRect();
-    const isNearViewport = rect.top < viewportHeight * 0.94 && rect.bottom > viewportHeight * 0.04;
+    const isNearViewport = rect.top < viewportHeight * 0.92 && rect.bottom > viewportHeight * 0.06;
 
     if (isNearViewport) {
       item.classList.add("is-visible");
-    }
-  });
-
-  sectionRevealItems.forEach((item) => {
-    const rect = item.getBoundingClientRect();
-    const isNearViewport = rect.top < viewportHeight * 0.98 && rect.bottom > 0;
-
-    if (isNearViewport) {
-      item.classList.add("section-lux-visible");
     }
   });
 };
@@ -340,30 +328,13 @@ const initRevealSystem = () => {
       { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
     );
 
-    revealItems.forEach((item, index) => {
+    revealItems.forEach((item) => {
       window.requestAnimationFrame(() => revealObserver.observe(item));
-    });
-
-    const sectionObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("section-lux-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "0px 0px -18% 0px", threshold: 0.1 }
-    );
-
-    sectionRevealItems.forEach((item) => {
-      sectionObserver.observe(item);
     });
 
     bindRevealFallback();
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
-    sectionRevealItems.forEach((item) => item.classList.add("section-lux-visible"));
   }
 };
 
