@@ -81,7 +81,8 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
       const nextMedia = document.createElement(shouldUseImage ? "img" : "video");
       nextMedia.dataset.showcaseMedia = "";
       nextMedia.className = media.className;
-      nextMedia.style.opacity = "0.35";
+      nextMedia.style.opacity = "0";
+      nextMedia.style.transform = "scale(1.08)";
 
       if (!shouldUseImage) {
         nextMedia.muted = true;
@@ -93,7 +94,8 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
       media = nextMedia;
       bindVideoEnd();
     } else {
-      media.style.opacity = "0.35";
+      media.style.opacity = "0";
+      media.style.transform = "scale(1.08)";
     }
 
     window.setTimeout(() => {
@@ -106,6 +108,7 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
         media.play?.().catch(() => {});
       }
       media.style.opacity = "1";
+      media.style.transform = "scale(1)";
       counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
       scheduleNextImage();
     }, 160);
@@ -374,6 +377,8 @@ prepareRevealSystem();
 window.addEventListener("load", () => {
   window.setTimeout(() => {
     preloader?.classList.add("is-hidden");
-    window.requestAnimationFrame(startExperience);
+    window.setTimeout(() => {
+      window.requestAnimationFrame(startExperience);
+    }, 240);
   }, 1600);
 });
