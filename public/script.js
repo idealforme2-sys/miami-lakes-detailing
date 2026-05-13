@@ -7,12 +7,7 @@ const quoteForm = document.querySelector("[data-quote-form]");
 const formNote = document.querySelector("[data-form-note]");
 document.documentElement.dataset.motion = "full";
 const prefersReducedMotion = false;
-
-window.addEventListener("load", () => {
-  window.setTimeout(() => {
-    preloader?.classList.add("is-hidden");
-  }, 1600);
-});
+let revealInitialized = false;
 
 const syncHeader = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -299,52 +294,72 @@ const bindRevealFallback = () => {
 
   const sync = () => window.requestAnimationFrame(revealInViewport);
 
-  sync();
-  window.setTimeout(sync, 220);
+  window.setTimeout(sync, 180);
+  window.setTimeout(sync, 460);
   window.addEventListener("load", sync, { once: true });
   window.addEventListener("pageshow", sync);
   window.addEventListener("resize", sync, { passive: true });
   window.addEventListener("scroll", sync, { passive: true });
 };
 
-if ("IntersectionObserver" in window && !prefersReducedMotion) {
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
-  );
+const initRevealSystem = () => {
+  if (revealInitialized) {
+    return;
+  }
 
-  revealItems.forEach((item, index) => {
-    item.classList.add("reveal-ready", `reveal-${item.dataset.revealType}`);
-    item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
-    window.requestAnimationFrame(() => revealObserver.observe(item));
-  });
+  revealInitialized = true;
 
-  const sectionObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("section-lux-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -18% 0px", threshold: 0.1 }
-  );
+  if ("IntersectionObserver" in window && !prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+    );
 
-  sectionRevealItems.forEach((item) => {
-    item.classList.add("section-lux-ready");
-    sectionObserver.observe(item);
-  });
+    revealItems.forEach((item, index) => {
+      item.classList.add("reveal-ready", `reveal-${item.dataset.revealType}`);
+      item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
+      window.requestAnimationFrame(() => revealObserver.observe(item));
+    });
 
-  bindRevealFallback();
-} else {
-  revealItems.forEach((item) => item.classList.add("is-visible"));
-  sectionRevealItems.forEach((item) => item.classList.add("section-lux-visible"));
-}
+    const sectionObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("section-lux-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -18% 0px", threshold: 0.1 }
+    );
+
+    sectionRevealItems.forEach((item) => {
+      item.classList.add("section-lux-ready");
+      sectionObserver.observe(item);
+    });
+
+    bindRevealFallback();
+  } else {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+    sectionRevealItems.forEach((item) => item.classList.add("section-lux-visible"));
+  }
+};
+
+const startExperience = () => {
+  document.body.classList.add("is-ready");
+  initRevealSystem();
+};
+
+window.addEventListener("load", () => {
+  window.setTimeout(() => {
+    preloader?.classList.add("is-hidden");
+    window.requestAnimationFrame(startExperience);
+  }, 1600);
+});

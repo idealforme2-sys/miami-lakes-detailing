@@ -387,6 +387,11 @@ select,
   width: min(100%, 760px);
   margin: 0;
   padding-left: clamp(8px, 3.8vw, 64px);
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+body.is-ready .hero-content {
   animation: heroContentRise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -619,7 +624,7 @@ h1 span {
 
 .signal-rail {
   width: 100%;
-  transform: rotate(-1.35deg) scale(1.02);
+  transform: rotate(-2.15deg) scale(1.035);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -1411,36 +1416,37 @@ h1 span {
   text-transform: uppercase;
 }
 
-.preloader-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-  padding: 10px 16px;
+.preloader-progress {
+  position: relative;
+  width: min(220px, 62vw);
+  height: 8px;
+  margin-top: 24px;
+  overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.08),
-    0 18px 40px rgba(0, 0, 0, 0.28);
+    0 14px 34px rgba(0, 0, 0, 0.24);
 }
 
-.preloader-status i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--cyan);
+.preloader-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent);
+  opacity: 0.75;
+}
+
+.preloader-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 44%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--pink));
   box-shadow:
-    0 0 18px rgba(0, 229, 255, 0.72),
-    0 0 28px rgba(255, 47, 179, 0.28);
-  animation: statusPulse 1.4s ease-in-out infinite;
-}
-
-.preloader-status small {
-  color: rgba(247, 251, 255, 0.7);
-  font-size: 0.62rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+    0 0 20px rgba(0, 229, 255, 0.34),
+    0 0 30px rgba(255, 47, 179, 0.22);
+  animation: preloaderProgress 1.45s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 @keyframes crystalGlow {
@@ -1492,16 +1498,14 @@ h1 span {
   }
 }
 
-@keyframes statusPulse {
+@keyframes preloaderProgress {
   0%,
   100% {
-    opacity: 0.7;
-    transform: scale(0.9);
+    transform: translateX(-118%) scaleX(0.92);
   }
 
-  50% {
-    opacity: 1;
-    transform: scale(1.18);
+  55% {
+    transform: translateX(118%) scaleX(1.08);
   }
 }
 
@@ -2719,7 +2723,7 @@ h1 span {
   }
 
   .signal-rail {
-    transform: rotate(-2deg) scale(1.04);
+    transform: rotate(-2.6deg) scale(1.05);
   }
 
   .why-panel ul {
@@ -2763,14 +2767,9 @@ h1 span {
     min-height: 82vh;
   }
 
-  .preloader-status {
-    gap: 8px;
-    margin-top: 18px;
-    padding: 9px 14px;
-  }
-
-  .preloader-status small {
-    font-size: 0.58rem;
+  .preloader-progress {
+    width: min(190px, 68vw);
+    margin-top: 20px;
   }
 
   h1 {
