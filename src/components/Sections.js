@@ -52,7 +52,7 @@ export function Showcase() {
         <p class="section-kicker">Real Results</p>
         <div class="section-heading showcase-heading">
           <h2>Clean Finish.</h2>
-          <p>Recent posts and reels from Miami Lakes Detailing. Tap any card to open the original Instagram source.</p>
+          <p>A few recent details from the feed. Open any card to see the original post on Instagram.</p>
         </div>
         <div class="showcase-grid">
           ${showcaseItems.map(showcaseMarkup).join("")}

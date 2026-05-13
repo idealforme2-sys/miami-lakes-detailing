@@ -46,7 +46,7 @@ export const services = [
 export const showcaseItems = [
   {
     title: "Showcase 01",
-    copy: "Multi-reel carousel from the Miami Lakes Detailing feed.",
+    copy: "A few angles from a recent detail.",
     link: "https://www.instagram.com/p/DXGAXmzDKAJ/?img_index=1",
     large: true,
     media: [
@@ -57,31 +57,31 @@ export const showcaseItems = [
   },
   {
     title: "Showcase 02",
-    copy: "Source reel from the official Instagram feed.",
+    copy: "Quick reel from a recent detail.",
     link: "https://www.instagram.com/p/DXJllDIxSj-/",
     media: ["/Showcase/2/SnapInsta.to_AQPe_vLhyk16Yv2mmQIjI2JIl3Izk8bMfhHra9P0xevzdi-o7XNmGah9UchziMUtJsTrvjVe4kaAaCN-5UCx-p8283Vx3RP6sbLucCs.mp4"],
   },
   {
     title: "Showcase 03",
-    copy: "Source reel from the official Instagram feed.",
+    copy: "Fresh finish from a recent job.",
     link: "https://www.instagram.com/p/DXJp6Lpxmuh/",
     media: ["/Showcase/3/SnapInsta.to_AQNFeq3ruMEzPxCqNvYCWSsxtIQF-3Bfh2QESDQdUEuo70qCLDK3GJAtijuC23d4pmiHI98hEiMnEzgOTF7bxyAuceMfmxpfzkq-biA.mp4"],
   },
   {
     title: "Showcase 04",
-    copy: "Source reel from the official Instagram feed.",
+    copy: "Interior reset from a recent pull-up.",
     link: "https://www.instagram.com/p/DXO3OQVxDeh/",
     media: ["/Showcase/4/SnapInsta.to_AQO1IyhdTPAu8vvRyCJits56-fcj9cWvSgipI-xUM9AJ6b2gfpR1xVdkWkHXJTJDKMS-RJ6xcgZ_qZMwNCyT09jppYNHmkIRjwty6yU.mp4"],
   },
   {
     title: "Showcase 05",
-    copy: "Source reel from the official Instagram feed.",
+    copy: "Close-up from a recent detail.",
     link: "https://www.instagram.com/p/DX2kS-oRh8f/",
     media: ["/Showcase/5/SnapInsta.to_AQOGJ1h7FSa3PZA5V0Hg4gPg0PkpsPZ2qdJLxdCvf3cmMQAQaesIacwDp68T22BOeUzwmYYaUx9brwYhbsFL7CfXFDvupt1fI8hA63w.mp4"],
   },
   {
     title: "Showcase 06",
-    copy: "Source reel from the official Instagram feed.",
+    copy: "Another recent finish from the feed.",
     link: "https://www.instagram.com/p/DX7RYG1RF1O/",
     wide: true,
     media: ["/Showcase/6/SnapInsta.to_AQN7-kXmJmXEudk1X3WQN6t-F_Yo6j5fZ4vNzQ0hVEoB6Bq-1o1_nJPH-JylkjirVKve5ETSBLB5imS-ea1MtwCToIbGrYSO-w7cnls.mp4"],
