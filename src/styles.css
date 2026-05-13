@@ -275,10 +275,12 @@ select {
 }
 
 .hero-image {
-  width: 100%;
-  height: 100%;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  max-width: none;
   object-fit: cover;
-  object-position: center 46%;
+  object-position: center 44%;
   filter: saturate(1.04) contrast(1.08);
   animation: heroDrift 17s ease-in-out infinite alternate;
 }
@@ -303,8 +305,8 @@ select {
 }
 
 @keyframes heroDrift {
-  from { transform: scale(0.972); }
-  to { transform: scale(0.985) translate3d(0.12%, -0.12%, 0); }
+  from { transform: scale(0.94); }
+  to { transform: scale(0.955) translate3d(0.12%, -0.12%, 0); }
 }
 
 @keyframes riseIn {
