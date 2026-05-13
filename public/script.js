@@ -2,7 +2,7 @@ const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const preloader = document.querySelector("[data-preloader]");
-const preloaderBar = document.querySelector(".preloader-progress span");
+const preloaderSegments = Array.from(document.querySelectorAll(".preloader-loader span"));
 const packageSelect = document.querySelector("[data-package-select]");
 const quoteForm = document.querySelector("[data-quote-form]");
 const formNote = document.querySelector("[data-form-note]");
@@ -20,10 +20,13 @@ const PRELOADER_FINISH_DURATION = 520;
 
 const setPreloaderProgress = (value) => {
   const clamped = Math.max(0, Math.min(100, value));
-  const trackReveal = Math.max(0, Math.min(1, clamped / 100));
+  const segmentSize = preloaderSegments.length ? 100 / preloaderSegments.length : 100;
 
-  preloader?.style.setProperty("--loader-track-scale", `${trackReveal.toFixed(3)}`);
-  preloaderBar?.style.setProperty("width", `${clamped.toFixed(2)}%`);
+  preloaderSegments.forEach((segment, index) => {
+    const start = index * segmentSize;
+    const fill = Math.max(0, Math.min(1, (clamped - start) / segmentSize));
+    segment.style.setProperty("--segment-fill", fill.toFixed(3));
+  });
 };
 
 const animatePreloaderProgress = () => {
