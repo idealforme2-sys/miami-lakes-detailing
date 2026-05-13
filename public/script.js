@@ -2,12 +2,37 @@ const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const preloader = document.querySelector("[data-preloader]");
+const preloaderBar = document.querySelector(".preloader-progress span");
 const packageSelect = document.querySelector("[data-package-select]");
 const quoteForm = document.querySelector("[data-quote-form]");
 const formNote = document.querySelector("[data-form-note]");
 document.documentElement.dataset.motion = "full";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let revealInitialized = false;
+let preloaderFinished = false;
+let preloaderValue = 0;
+let preloaderFrame;
+
+const setPreloaderProgress = (value) => {
+  preloaderBar?.style.setProperty("width", `${Math.max(0, Math.min(100, value)).toFixed(2)}%`);
+};
+
+const animatePreloaderProgress = () => {
+  const target = preloaderFinished ? 100 : 88;
+  const easing = preloaderFinished ? 0.18 : 0.04;
+
+  preloaderValue += (target - preloaderValue) * easing;
+
+  if (preloaderFinished && target - preloaderValue < 0.4) {
+    preloaderValue = 100;
+  }
+
+  setPreloaderProgress(preloaderValue);
+
+  if (!preloaderFinished || preloaderValue < 99.98) {
+    preloaderFrame = window.requestAnimationFrame(animatePreloaderProgress);
+  }
+};
 
 const syncHeader = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -55,6 +80,33 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
 
   const isImage = (src) => /\.(avif|gif|jpe?g|png|svg|webp)$/i.test(src);
 
+  const waitForMediaReady = (element, shouldUseImage, callback) => {
+    if (shouldUseImage) {
+      if (element.complete && element.naturalWidth > 0) {
+        callback();
+        return;
+      }
+
+      element.addEventListener("load", callback, { once: true });
+      element.addEventListener("error", callback, { once: true });
+      return;
+    }
+
+    const ready = () => {
+      element.removeEventListener("loadeddata", ready);
+      element.removeEventListener("error", ready);
+      callback();
+    };
+
+    if (element.readyState >= 2) {
+      callback();
+      return;
+    }
+
+    element.addEventListener("loadeddata", ready, { once: true });
+    element.addEventListener("error", ready, { once: true });
+  };
+
   const scheduleNextImage = () => {
     window.clearTimeout(imageTimer);
     if (items.length > 1 && isImage(items[activeIndex])) {
@@ -76,12 +128,13 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
     const src = items[activeIndex];
     const shouldUseImage = isImage(src);
     const shouldSwapElement = shouldUseImage ? media.tagName !== "IMG" : media.tagName !== "VIDEO";
+    card.classList.add("is-transitioning");
 
     if (shouldSwapElement) {
       const nextMedia = document.createElement(shouldUseImage ? "img" : "video");
       nextMedia.dataset.showcaseMedia = "";
       nextMedia.className = media.className;
-      nextMedia.style.opacity = "0.35";
+      nextMedia.style.opacity = "0";
 
       if (!shouldUseImage) {
         nextMedia.muted = true;
@@ -93,22 +146,35 @@ document.querySelectorAll("[data-showcase-card]").forEach((card) => {
       media = nextMedia;
       bindVideoEnd();
     } else {
-      media.style.opacity = "0.35";
+      media.style.opacity = "0.18";
+      media.style.transform = "scale(1.06)";
+      media.style.filter = "saturate(0.82) blur(2px)";
     }
 
-    window.setTimeout(() => {
-      media.src = src;
-      if (shouldUseImage) {
-        media.alt = card.querySelector(".showcase-copy h3")?.textContent || "Miami Lakes Detailing showcase";
-      } else {
-        media.loop = items.length < 2;
-        media.load?.();
+    media.src = src;
+
+    if (shouldUseImage) {
+      media.alt = card.querySelector(".showcase-copy h3")?.textContent || "Miami Lakes Detailing showcase";
+    } else {
+      media.loop = items.length < 2;
+      media.load?.();
+    }
+
+    waitForMediaReady(media, shouldUseImage, () => {
+      if (!shouldUseImage) {
         media.play?.().catch(() => {});
       }
-      media.style.opacity = "1";
+
       counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
-      scheduleNextImage();
-    }, 160);
+      media.style.opacity = "1";
+      media.style.transform = "scale(1)";
+      media.style.filter = "";
+
+      window.setTimeout(() => {
+        card.classList.remove("is-transitioning");
+        scheduleNextImage();
+      }, 180);
+    });
   };
 
   if (items.length > 1) {
@@ -344,12 +410,25 @@ const startExperience = () => {
 };
 
 prepareRevealSystem();
+setPreloaderProgress(0);
+
+if (preloader && !prefersReducedMotion) {
+  preloaderFrame = window.requestAnimationFrame(animatePreloaderProgress);
+} else {
+  setPreloaderProgress(100);
+}
 
 window.addEventListener("load", () => {
-  window.setTimeout(() => {
+  preloaderFinished = true;
+
+  const finishLoader = () => {
+    window.cancelAnimationFrame(preloaderFrame);
+    setPreloaderProgress(100);
     preloader?.classList.add("is-hidden");
     window.setTimeout(() => {
       window.requestAnimationFrame(startExperience);
     }, 240);
-  }, 1600);
+  };
+
+  window.setTimeout(finishLoader, prefersReducedMotion ? 220 : 520);
 });
