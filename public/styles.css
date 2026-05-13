@@ -594,7 +594,7 @@ h1 span {
 .signal-strip {
   position: relative;
   overflow: hidden;
-  padding: 16px 0;
+  padding: 20px 0;
   border-block: 1px solid rgba(255, 255, 255, 0.1);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 42%, rgba(0, 0, 0, 0.24)),
@@ -623,8 +623,9 @@ h1 span {
 }
 
 .signal-rail {
-  width: 100%;
-  transform: rotate(-2.15deg) scale(1.035);
+  width: calc(100% + 10vw);
+  margin-left: -5vw;
+  transform: rotate(-3.2deg) scale(1.06);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -1330,40 +1331,40 @@ h1 span {
   display: grid;
   justify-items: center;
   gap: 0;
-  padding: 44px 46px 34px;
+  padding: 26px 26px 18px;
   overflow: visible;
 }
 
 .preloader-content::before {
   content: "";
   position: absolute;
-  inset: -36px;
+  inset: -22px;
   z-index: -2;
-  border-radius: 999px;
+  border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.08), transparent 22%),
-    radial-gradient(circle at 50% 62%, rgba(0, 229, 255, 0.1), transparent 36%),
-    radial-gradient(circle at 50% 68%, rgba(255, 47, 179, 0.08), transparent 40%);
-  filter: blur(8px);
-  opacity: 0.92;
+    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.06), transparent 24%),
+    radial-gradient(circle at 50% 58%, rgba(0, 229, 255, 0.1), transparent 34%),
+    radial-gradient(circle at 50% 62%, rgba(255, 47, 179, 0.08), transparent 38%);
+  filter: blur(14px);
+  opacity: 0.78;
 }
 
 .preloader-content::after {
   content: "";
   position: absolute;
-  inset: auto -24px -12px;
-  height: 146px;
+  inset: auto -6px -8px;
+  height: 112px;
   z-index: -1;
   background: radial-gradient(ellipse, rgba(0, 229, 255, 0.32), rgba(255, 47, 179, 0.18) 48%, transparent 76%);
-  filter: blur(32px);
+  filter: blur(26px);
   animation: crystalGlow 2.8s ease-in-out infinite;
 }
 
 .preloader-logo {
   position: relative;
   display: grid;
-  width: 168px;
-  height: 168px;
+  width: 156px;
+  height: 156px;
   place-items: center;
   overflow: hidden;
   border-radius: 50%;
@@ -1372,22 +1373,22 @@ h1 span {
     radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(3, 3, 5, 0.68) 62%),
     rgba(3, 3, 5, 0.62);
   box-shadow:
-    0 0 36px rgba(0, 229, 255, 0.28),
-    0 0 78px rgba(255, 47, 179, 0.18),
-    0 28px 90px rgba(0, 0, 0, 0.52);
-  animation: preloaderLogoPulse 2.3s ease-in-out infinite, crystalFloat 4.6s ease-in-out infinite;
+    0 0 28px rgba(0, 229, 255, 0.2),
+    0 0 56px rgba(255, 47, 179, 0.14),
+    0 20px 72px rgba(0, 0, 0, 0.42);
+  animation: preloaderLogoPulse 2.15s ease-in-out infinite, crystalFloat 4.6s ease-in-out infinite;
 }
 
 .preloader-logo::before {
   content: "";
   position: absolute;
-  inset: -18px;
+  inset: -12px;
   border-radius: 50%;
   background:
-    conic-gradient(from 210deg, rgba(0, 229, 255, 0), rgba(0, 229, 255, 0.26), rgba(255, 47, 179, 0.28), rgba(0, 229, 255, 0));
-  filter: blur(20px);
-  opacity: 0.92;
-  animation: preloaderHalo 3.4s linear infinite;
+    conic-gradient(from 210deg, rgba(0, 229, 255, 0), rgba(0, 229, 255, 0.18), rgba(255, 47, 179, 0.2), rgba(0, 229, 255, 0));
+  filter: blur(18px);
+  opacity: 0.74;
+  animation: preloaderHalo 3.6s linear infinite;
 }
 
 .preloader-logo img {
@@ -1401,32 +1402,33 @@ h1 span {
 }
 
 .preloader-content strong {
-  margin-top: 22px;
+  margin-top: 18px;
   font-size: 1rem;
   font-weight: 950;
   text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.28);
+  text-shadow: 0 0 18px rgba(0, 229, 255, 0.18);
 }
 
 .preloader-content span {
-  margin-top: 8px;
+  margin-top: 6px;
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .preloader-progress {
   position: relative;
-  width: min(220px, 62vw);
-  height: 8px;
-  margin-top: 24px;
+  width: min(180px, 54vw);
+  height: 4px;
+  margin-top: 18px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.08),
-    0 14px 34px rgba(0, 0, 0, 0.24);
+    0 10px 24px rgba(0, 0, 0, 0.22);
 }
 
 .preloader-progress::before {
@@ -1440,13 +1442,13 @@ h1 span {
 .preloader-progress span {
   position: absolute;
   inset: 0 auto 0 0;
-  width: 44%;
+  width: 38%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--cyan), var(--pink));
   box-shadow:
-    0 0 20px rgba(0, 229, 255, 0.34),
-    0 0 30px rgba(255, 47, 179, 0.22);
-  animation: preloaderProgress 1.45s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    0 0 16px rgba(0, 229, 255, 0.28),
+    0 0 22px rgba(255, 47, 179, 0.18);
+  animation: preloaderProgress 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 @keyframes crystalGlow {
@@ -2719,11 +2721,13 @@ h1 span {
   }
 
   .signal-strip {
-    padding: 12px 0;
+    padding: 14px 0;
   }
 
   .signal-rail {
-    transform: rotate(-2.6deg) scale(1.05);
+    width: calc(100% + 14vw);
+    margin-left: -7vw;
+    transform: rotate(-3.7deg) scale(1.08);
   }
 
   .why-panel ul {
@@ -2768,8 +2772,8 @@ h1 span {
   }
 
   .preloader-progress {
-    width: min(190px, 68vw);
-    margin-top: 20px;
+    width: min(164px, 66vw);
+    margin-top: 16px;
   }
 
   h1 {
@@ -2878,12 +2882,12 @@ h1 span {
 
 @media (max-width: 540px) {
   .preloader-logo {
-    width: 138px;
-    height: 138px;
+      width: 132px;
+      height: 132px;
   }
 
   .preloader-content {
-    padding: 28px 30px;
+      padding: 24px 24px 16px;
   }
 
   .showcase-heading h2,

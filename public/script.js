@@ -265,6 +265,21 @@ const sectionRevealItems = document.querySelectorAll(
   ].join(",")
 );
 
+const prepareRevealSystem = () => {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  revealItems.forEach((item, index) => {
+    item.classList.add("reveal-ready", `reveal-${item.dataset.revealType}`);
+    item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
+  });
+
+  sectionRevealItems.forEach((item) => {
+    item.classList.add("section-lux-ready");
+  });
+};
+
 const revealInViewport = () => {
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
@@ -323,8 +338,6 @@ const initRevealSystem = () => {
     );
 
     revealItems.forEach((item, index) => {
-      item.classList.add("reveal-ready", `reveal-${item.dataset.revealType}`);
-      item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
       window.requestAnimationFrame(() => revealObserver.observe(item));
     });
 
@@ -341,7 +354,6 @@ const initRevealSystem = () => {
     );
 
     sectionRevealItems.forEach((item) => {
-      item.classList.add("section-lux-ready");
       sectionObserver.observe(item);
     });
 
@@ -356,6 +368,8 @@ const startExperience = () => {
   document.body.classList.add("is-ready");
   initRevealSystem();
 };
+
+prepareRevealSystem();
 
 window.addEventListener("load", () => {
   window.setTimeout(() => {
