@@ -623,9 +623,9 @@ h1 span {
 }
 
 .signal-rail {
-  width: calc(100% + 10vw);
-  margin-left: -5vw;
-  transform: rotate(1.85deg) scale(1.04) skewX(-3deg);
+  width: calc(100% + 8vw);
+  margin-left: -4vw;
+  transform: rotate(1.05deg) scale(1.028) skewX(-2deg);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -1740,22 +1740,82 @@ h1 span {
   display: none;
 }
 
+.showcase-card.reveal-ready img,
+.showcase-card.reveal-ready video {
+  opacity: 0.36;
+  filter: saturate(0.76) blur(10px);
+  transform: scale(1.085);
+}
+
+.showcase-card.reveal-ready .showcase-copy {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.showcase-card.reveal-ready .showcase-counter,
+.showcase-card.reveal-ready .showcase-source {
+  opacity: 0;
+  transform: translate3d(0, -12px, 0);
+}
+
+.showcase-card.reveal-ready .showcase-arrow {
+  opacity: 0;
+  transform: translateY(calc(-50% - 12px));
+}
+
 .showcase-card.reveal-ready.is-visible img,
 .showcase-card.reveal-ready.is-visible video {
-  animation: showcaseMediaBloom 1.02s cubic-bezier(0.16, 1, 0.3, 1) both;
+  opacity: 1;
+  filter: saturate(1) blur(0);
+  transform: scale(1);
 }
 
-.showcase-card.reveal-ready.is-visible .showcase-copy {
-  animation: showcaseUiLift 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
+.showcase-card.reveal-ready.is-visible .showcase-copy,
 .showcase-card.reveal-ready.is-visible .showcase-counter,
 .showcase-card.reveal-ready.is-visible .showcase-source {
-  animation: showcasePillDrop 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 .showcase-card.reveal-ready.is-visible .showcase-arrow {
-  animation: showcaseArrowLift 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.section-heading.reveal-ready h2,
+.showcase-heading.reveal-ready h2,
+.word-heading.reveal-ready h2,
+.faq-heading.reveal-ready h2,
+.booking-copy.reveal-ready h2,
+.final-cta-inner.reveal-ready h2,
+.why-copy.reveal-ready h2,
+.finish-copy.reveal-ready h2,
+.area-copy.reveal-ready h2 {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translate3d(-18px, 18px, 0);
+  transition:
+    opacity 840ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 20ms),
+    filter 980ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 20ms),
+    transform 1080ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 20ms);
+}
+
+.section-heading.reveal-ready p,
+.showcase-heading.reveal-ready p,
+.word-heading.reveal-ready p,
+.faq-heading.reveal-ready p,
+.booking-copy.reveal-ready p,
+.final-cta-inner.reveal-ready p:not(.eyebrow),
+.why-copy.reveal-ready p,
+.finish-copy.reveal-ready p,
+.area-copy.reveal-ready p {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 780ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 110ms),
+    filter 920ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 110ms),
+    transform 980ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 110ms);
 }
 
 .section-heading.reveal-ready.is-visible h2,
@@ -1763,110 +1823,22 @@ h1 span {
 .word-heading.reveal-ready.is-visible h2,
 .faq-heading.reveal-ready.is-visible h2,
 .booking-copy.reveal-ready.is-visible h2,
-.final-cta-inner.reveal-ready.is-visible h2 {
-  animation: titleCascade 0.94s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
+.final-cta-inner.reveal-ready.is-visible h2,
+.why-copy.reveal-ready.is-visible h2,
+.finish-copy.reveal-ready.is-visible h2,
+.area-copy.reveal-ready.is-visible h2,
 .section-heading.reveal-ready.is-visible p,
 .showcase-heading.reveal-ready.is-visible p,
 .word-heading.reveal-ready.is-visible p,
 .faq-heading.reveal-ready.is-visible p,
 .booking-copy.reveal-ready.is-visible p,
-.final-cta-inner.reveal-ready.is-visible p:not(.eyebrow) {
-  animation: copyCascade 0.84s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.section-kicker.reveal-ready.is-visible,
-.eyebrow.reveal-ready.is-visible {
-  animation: kickerIgnite 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes showcaseMediaBloom {
-  from {
-    opacity: 0.24;
-    filter: saturate(0.74) blur(8px);
-    transform: scale(1.12);
-  }
-
-  to {
-    opacity: 1;
-    filter: saturate(1) blur(0);
-    transform: scale(1);
-  }
-}
-
-@keyframes showcaseUiLift {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes showcasePillDrop {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -14px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes showcaseArrowLift {
-  from {
-    opacity: 0;
-    transform: translateY(calc(-50% - 14px));
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(-50%);
-  }
-}
-
-@keyframes titleCascade {
-  from {
-    opacity: 0;
-    transform: translate3d(-14px, 22px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes copyCascade {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes kickerIgnite {
-  from {
-    opacity: 0;
-    text-shadow: 0 0 0 rgba(0, 229, 255, 0);
-    transform: translate3d(0, 14px, 0);
-  }
-
-  to {
-    opacity: 1;
-    text-shadow: 0 0 22px rgba(0, 229, 255, 0.18);
-    transform: translate3d(0, 0, 0);
-  }
+.final-cta-inner.reveal-ready.is-visible p:not(.eyebrow),
+.why-copy.reveal-ready.is-visible p,
+.finish-copy.reveal-ready.is-visible p,
+.area-copy.reveal-ready.is-visible p {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .showcase-prev {
@@ -2611,13 +2583,14 @@ h1 span {
 
 .reveal-ready {
   opacity: 0 !important;
-  filter: blur(5px) saturate(0.96) brightness(0.98);
-  transform: translate3d(0, 14px, 0) scale(0.996);
+  filter: blur(7px) saturate(0.94) brightness(0.98);
+  transform: translate3d(0, 22px, 0) scale(0.988);
   transition:
-    opacity 880ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    filter 960ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) !important;
+    opacity 820ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    filter 980ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 1180ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) !important;
   will-change: opacity, filter, transform;
+  backface-visibility: hidden;
 }
 
 .reveal-ready.is-visible,
@@ -2637,7 +2610,7 @@ h1 span {
 .why-copy.reveal-ready,
 .finish-copy.reveal-ready,
 .area-copy.reveal-ready {
-  transform: translate3d(-10px, 16px, 0);
+  transform: translate3d(-14px, 24px, 0) scale(0.992);
 }
 
 .showcase-card.reveal-ready,
@@ -2649,31 +2622,11 @@ h1 span {
 .map-frame.reveal-ready,
 .finish-media.reveal-ready,
 .why-panel li.reveal-ready {
-  transform: translate3d(0, 16px, 0) scale(0.99);
+  transform: translate3d(0, 28px, 0) scale(0.982);
 }
 
-.service-grid.reveal-ready,
-.package-grid.reveal-ready,
-.review-grid.reveal-ready,
-.faq-list.reveal-ready,
-.finish-section.reveal-ready,
-.booking-section.reveal-ready,
-.service-area.reveal-ready,
 .why-panel.reveal-ready {
-  transform: translate3d(0, 14px, 0) scale(0.994);
-}
-
-#services.reveal-ready,
-#finish.reveal-ready,
-#packages.reveal-ready,
-#area.reveal-ready,
-#faq.reveal-ready,
-#booking.reveal-ready,
-.showcase-section.reveal-ready,
-.why-section.reveal-ready,
-.word-section.reveal-ready,
-.final-cta.reveal-ready {
-  transform: translate3d(0, 10px, 0) scale(0.998);
+  transform: translate3d(0, 16px, 0) scale(0.996);
 }
 
 .hero-copy.reveal-ready,
@@ -2684,23 +2637,7 @@ h1 span {
 .footer-links a.reveal-ready,
 .footer-links span.reveal-ready,
 .footer-bottom > *.reveal-ready {
-  transform: translate3d(0, 10px, 0);
-}
-
-.showcase-copy.reveal-ready,
-.showcase-counter.reveal-ready,
-.showcase-source.reveal-ready,
-.showcase-arrow.reveal-ready,
-.service-card > div.reveal-ready,
-.service-card > a.reveal-ready,
-.package-card > *.reveal-ready,
-.review-card > *.reveal-ready,
-.quote-form > *.reveal-ready,
-.faq-item button.reveal-ready,
-.faq-item p.reveal-ready,
-.map-label.reveal-ready,
-.why-meter.reveal-ready {
-  transform: translate3d(0, 12px, 0);
+  transform: translate3d(0, 16px, 0);
 }
 
 .package-card.reveal-ready.is-visible {
@@ -2870,9 +2807,9 @@ h1 span {
   }
 
   .signal-rail {
-    width: calc(100% + 12vw);
-    margin-left: -6vw;
-    transform: rotate(2.2deg) scale(1.05) skewX(-3deg);
+    width: calc(100% + 10vw);
+    margin-left: -5vw;
+    transform: rotate(1.2deg) scale(1.032) skewX(-2deg);
   }
 
   .why-panel ul {

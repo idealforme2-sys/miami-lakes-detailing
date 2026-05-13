@@ -319,94 +319,120 @@ quoteForm?.addEventListener("submit", (event) => {
   }
 });
 
-const revealItems = document.querySelectorAll(
-  [
-    ".section-kicker",
-    ".eyebrow",
-    ".hero-content h1",
-    ".hero-copy",
-    ".section-heading",
-    ".showcase-heading",
-    ".showcase-section",
-    ".showcase-card",
-    ".showcase-copy",
-    ".showcase-counter",
-    ".showcase-source",
-    ".showcase-arrow",
-    "#services",
-    ".service-grid",
-    ".service-card",
-    ".service-card > div",
-    ".service-card > a",
-    "#finish",
-    ".finish-section",
-    ".finish-media",
-    ".finish-copy",
-    ".why-section",
-    ".why-copy",
-    ".why-meter",
-    ".why-panel",
-    ".why-panel li",
-    "#packages",
-    ".package-grid",
-    ".package-card",
-    ".package-card > *",
-    ".word-section",
-    ".word-heading",
-    ".review-grid",
-    ".review-card",
-    ".review-card > *",
-    "#area",
-    ".service-area",
-    ".area-copy",
-    ".area-facts span",
-    ".map-frame",
-    ".map-label",
-    "#faq",
-    ".faq-heading",
-    ".faq-list",
-    ".faq-item",
-    ".faq-item button",
-    ".faq-item p",
-    "#booking",
-    ".booking-section",
-    ".booking-copy",
-    ".quote-form",
-    ".quote-form > *",
-    ".final-cta",
-    ".final-cta-inner",
-    ".final-cta .hero-actions .button",
-    ".hero-actions .button",
-    ".hero-stats div",
-    ".footer-logo",
-    ".footer-brand p",
-    ".footer-brand .footer-social",
-    ".footer-links a",
-    ".footer-links span",
-    ".footer-bottom > *",
-  ].join(",")
-);
+const revealGroupConfigs = [
+  {
+    root: ".hero-content",
+    includeRoot: false,
+    items: [".eyebrow", "h1", ".hero-copy", ".hero-actions .button", ".hero-stats div"],
+  },
+  {
+    root: ".showcase-section",
+    includeRoot: false,
+    items: [".section-kicker", ".showcase-heading", ".showcase-card"],
+  },
+  {
+    root: "#services",
+    includeRoot: false,
+    items: [".section-kicker", ".section-heading", ".service-card"],
+  },
+  {
+    root: "#finish",
+    includeRoot: false,
+    items: [".finish-media", ".finish-copy", ".finish-list span"],
+  },
+  {
+    root: ".why-section",
+    includeRoot: false,
+    items: [".why-copy", ".why-copy .button", ".why-meter", ".why-panel"],
+  },
+  {
+    root: "#packages",
+    includeRoot: false,
+    items: [".section-kicker", ".section-heading", ".package-card"],
+  },
+  {
+    root: ".word-section",
+    includeRoot: false,
+    items: [".word-heading", ".review-card"],
+  },
+  {
+    root: "#area",
+    includeRoot: false,
+    items: [".section-kicker", ".area-copy", ".area-facts span", ".map-frame", ".map-label"],
+  },
+  {
+    root: "#faq",
+    includeRoot: false,
+    items: [".faq-heading", ".faq-item"],
+  },
+  {
+    root: "#booking",
+    includeRoot: false,
+    items: [".booking-copy", ".quote-form"],
+  },
+  {
+    root: ".final-cta",
+    includeRoot: false,
+    items: [".final-cta-inner", ".eyebrow", ".hero-actions .button"],
+  },
+  {
+    root: ".site-footer",
+    includeRoot: false,
+    items: [".footer-logo", ".footer-brand p", ".footer-brand .footer-social", ".footer-links a", ".footer-links span", ".footer-bottom > *"],
+  },
+];
+
+const revealGroups = revealGroupConfigs
+  .map((config) => {
+    const group = document.querySelector(config.root);
+
+    if (!group) {
+      return null;
+    }
+
+    const items = [];
+    const seen = new Set();
+
+    if (config.includeRoot) {
+      items.push(group);
+      seen.add(group);
+    }
+
+    config.items.forEach((selector) => {
+      group.querySelectorAll(selector).forEach((node) => {
+        if (!seen.has(node)) {
+          seen.add(node);
+          items.push(node);
+        }
+      });
+    });
+
+    return { group, items };
+  })
+  .filter(Boolean);
 
 const prepareRevealSystem = () => {
   if (prefersReducedMotion) {
     return;
   }
 
-  revealItems.forEach((item, index) => {
-    item.classList.add("reveal-ready");
-    item.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 45}ms`);
+  revealGroups.forEach(({ items }) => {
+    items.forEach((item, index) => {
+      item.classList.add("reveal-ready");
+      item.style.setProperty("--reveal-delay", `${Math.min(index, 7) * 55}ms`);
+    });
   });
 };
 
 const revealInViewport = () => {
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
-  revealItems.forEach((item) => {
-    const rect = item.getBoundingClientRect();
-    const isNearViewport = rect.top < viewportHeight * 0.92 && rect.bottom > viewportHeight * 0.06;
+  revealGroups.forEach(({ group, items }) => {
+    const rect = group.getBoundingClientRect();
+    const isNearViewport = rect.top < viewportHeight * 0.88 && rect.bottom > viewportHeight * 0.12;
 
     if (isNearViewport) {
-      item.classList.add("is-visible");
+      items.forEach((item) => item.classList.add("is-visible"));
     }
   });
 };
@@ -438,7 +464,9 @@ const initRevealSystem = () => {
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            const config = revealGroups.find(({ group }) => group === entry.target);
+
+            config?.items.forEach((item) => item.classList.add("is-visible"));
             observer.unobserve(entry.target);
           }
         });
@@ -446,13 +474,13 @@ const initRevealSystem = () => {
       { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
     );
 
-    revealItems.forEach((item) => {
-      window.requestAnimationFrame(() => revealObserver.observe(item));
+    revealGroups.forEach(({ group }) => {
+      window.requestAnimationFrame(() => revealObserver.observe(group));
     });
 
     bindRevealFallback();
   } else {
-    revealItems.forEach((item) => item.classList.add("is-visible"));
+    revealGroups.forEach(({ items }) => items.forEach((item) => item.classList.add("is-visible")));
   }
 };
 
