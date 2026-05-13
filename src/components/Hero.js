@@ -4,7 +4,7 @@ import { InstagramIcon } from "./icons.js";
 export function Hero() {
   return `
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-image" src="/cardetailing_hero.jpg" alt="Premium detailing finish on a clean vehicle" />
+      <img class="hero-image" src="/heronew.jpg" alt="Premium detailing finish on a clean vehicle" />
       <div class="hero-shade"></div>
       <div class="hero-content">
         <p class="eyebrow">Premium wash bay energy. Miami Lakes speed.</p>

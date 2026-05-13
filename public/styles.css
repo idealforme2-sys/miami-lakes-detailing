@@ -357,9 +357,9 @@ select,
   height: 100%;
   margin: 0;
   object-fit: cover;
-  object-position: center 48%;
+  object-position: center 46%;
   filter: saturate(1.02) contrast(1.1);
-  transform: scale(1);
+  transform: scale(0.972);
   animation: heroDrift 18s ease-in-out infinite alternate;
 }
 
@@ -397,11 +397,11 @@ body.is-ready .hero-content {
 
 @keyframes heroDrift {
   from {
-    transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(0.972) translate3d(0, 0, 0);
   }
 
   to {
-    transform: scale(1.01) translate3d(0.16%, -0.16%, 0);
+    transform: scale(0.985) translate3d(0.12%, -0.12%, 0);
   }
 }
 
