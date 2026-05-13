@@ -19,7 +19,11 @@ const PRELOADER_MIN_DURATION = 2200;
 const PRELOADER_FINISH_DURATION = 520;
 
 const setPreloaderProgress = (value) => {
-  preloaderBar?.style.setProperty("width", `${Math.max(0, Math.min(100, value)).toFixed(2)}%`);
+  const clamped = Math.max(0, Math.min(100, value));
+  const trackReveal = Math.max(0, Math.min(1, clamped / 100));
+
+  preloader?.style.setProperty("--loader-track-scale", `${trackReveal.toFixed(3)}`);
+  preloaderBar?.style.setProperty("width", `${clamped.toFixed(2)}%`);
 };
 
 const animatePreloaderProgress = () => {

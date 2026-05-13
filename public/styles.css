@@ -623,16 +623,16 @@ h1 span {
 }
 
 .signal-rail {
-  width: calc(100% + 10vw);
-  margin-left: -5vw;
-  transform: rotate(2.6deg) scale(1.045);
+  width: calc(100% + 16vw);
+  margin-left: -8vw;
+  transform: rotate(3.55deg) scale(1.08);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
     linear-gradient(90deg, rgba(3, 3, 5, 0.88), rgba(16, 18, 26, 0.9)),
     linear-gradient(90deg, var(--cyan), var(--pink));
   box-shadow:
-    0 20px 56px rgba(0, 0, 0, 0.44),
+    0 24px 64px rgba(0, 0, 0, 0.46),
     inset 0 1px rgba(255, 255, 255, 0.16);
 }
 
@@ -1315,6 +1315,7 @@ h1 span {
     radial-gradient(circle at 50% 44%, rgba(0, 229, 255, 0.2), transparent 25%),
     radial-gradient(circle at 50% 54%, rgba(255, 47, 179, 0.12), transparent 28%),
     var(--black);
+  --loader-track-scale: 0;
   transition: opacity 700ms ease, transform 800ms cubic-bezier(0.76, 0, 0.24, 1), visibility 700ms ease;
 }
 
@@ -1402,7 +1403,7 @@ h1 span {
 .preloader-progress {
   position: relative;
   width: min(228px, 58vw);
-  height: 10px;
+  height: 12px;
   margin-top: 18px;
   overflow: hidden;
   border-radius: 999px;
@@ -1411,6 +1412,11 @@ h1 span {
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.04),
     0 12px 28px rgba(0, 0, 0, 0.18);
+  transform: scaleX(var(--loader-track-scale));
+  transform-origin: left center;
+  opacity: calc(0.18 + (var(--loader-track-scale) * 0.82));
+  transition: opacity 160ms ease;
+  will-change: transform, opacity;
 }
 
 .preloader-progress span {
@@ -1441,10 +1447,10 @@ h1 span {
 .preloader-progress span::after {
   content: "";
   position: absolute;
-  top: -3px;
-  right: -8px;
-  width: 18px;
-  height: calc(100% + 6px);
+  top: -4px;
+  right: -10px;
+  width: 22px;
+  height: calc(100% + 8px);
   border-radius: 999px;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(116, 248, 255, 0.38) 58%, transparent 76%);
   filter: blur(3px);
@@ -2879,9 +2885,9 @@ h1 span {
   }
 
   .signal-rail {
-    width: calc(100% + 14vw);
-    margin-left: -7vw;
-    transform: rotate(3.1deg) scale(1.07);
+    width: calc(100% + 18vw);
+    margin-left: -9vw;
+    transform: rotate(4.1deg) scale(1.1);
   }
 
   .why-panel ul {
