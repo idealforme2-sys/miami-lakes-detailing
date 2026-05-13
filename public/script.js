@@ -378,7 +378,7 @@ const prepareRevealSystem = () => {
 
   revealItems.forEach((item, index) => {
     item.classList.add("reveal-ready");
-    item.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
+    item.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 45}ms`);
   });
 };
 
