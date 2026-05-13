@@ -275,9 +275,9 @@ select {
 }
 
 .hero-image {
-  inset: -4%;
-  width: 108%;
-  height: 108%;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
   max-width: none;
   object-fit: cover;
   object-position: center 44%;
@@ -305,8 +305,8 @@ select {
 }
 
 @keyframes heroDrift {
-  from { transform: scale(0.94); }
-  to { transform: scale(0.955) translate3d(0.12%, -0.12%, 0); }
+  from { transform: scale(0.88); }
+  to { transform: scale(0.90) translate3d(0.12%, -0.12%, 0); }
 }
 
 @keyframes riseIn {
