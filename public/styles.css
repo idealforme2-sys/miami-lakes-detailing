@@ -594,7 +594,7 @@ h1 span {
 .signal-strip {
   position: relative;
   overflow: hidden;
-  padding: 26px 0;
+  padding: 22px 0;
   border-block: 1px solid rgba(255, 255, 255, 0.1);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 42%, rgba(0, 0, 0, 0.24)),
@@ -623,9 +623,9 @@ h1 span {
 }
 
 .signal-rail {
-  width: calc(100% + 12vw);
-  margin-left: -6vw;
-  transform: rotate(2.8deg) scale(1.06) skewX(-4deg);
+  width: calc(100% + 10vw);
+  margin-left: -5vw;
+  transform: rotate(1.85deg) scale(1.04) skewX(-3deg);
   transform-origin: center;
   border-block: 1px solid rgba(255, 255, 255, 0.18);
   background:
@@ -659,7 +659,7 @@ h1 span {
   white-space: nowrap;
   text-transform: uppercase;
   text-shadow: 0 0 18px rgba(0, 229, 255, 0.18);
-  transform: skewX(-10deg);
+  transform: skewX(-7deg);
 }
 
 .signal-group span::after {
@@ -2611,12 +2611,12 @@ h1 span {
 
 .reveal-ready {
   opacity: 0 !important;
-  filter: blur(6px) saturate(0.94) brightness(0.96);
-  transform: translate3d(0, 18px, 0) scale(0.994);
+  filter: blur(5px) saturate(0.96) brightness(0.98);
+  transform: translate3d(0, 14px, 0) scale(0.996);
   transition:
-    opacity 820ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    filter 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    transform 980ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) !important;
+    opacity 880ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    filter 960ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) !important;
   will-change: opacity, filter, transform;
 }
 
@@ -2627,6 +2627,7 @@ h1 span {
   transform: translate3d(0, 0, 0) scale(1) !important;
 }
 
+.hero-content h1.reveal-ready,
 .section-heading.reveal-ready,
 .showcase-heading.reveal-ready,
 .word-heading.reveal-ready,
@@ -2636,7 +2637,7 @@ h1 span {
 .why-copy.reveal-ready,
 .finish-copy.reveal-ready,
 .area-copy.reveal-ready {
-  transform: translate3d(-12px, 18px, 0);
+  transform: translate3d(-10px, 16px, 0);
 }
 
 .showcase-card.reveal-ready,
@@ -2648,7 +2649,7 @@ h1 span {
 .map-frame.reveal-ready,
 .finish-media.reveal-ready,
 .why-panel li.reveal-ready {
-  transform: translate3d(0, 20px, 0) scale(0.986);
+  transform: translate3d(0, 16px, 0) scale(0.99);
 }
 
 .service-grid.reveal-ready,
@@ -2659,7 +2660,7 @@ h1 span {
 .booking-section.reveal-ready,
 .service-area.reveal-ready,
 .why-panel.reveal-ready {
-  transform: translate3d(0, 18px, 0) scale(0.992);
+  transform: translate3d(0, 14px, 0) scale(0.994);
 }
 
 #services.reveal-ready,
@@ -2672,9 +2673,10 @@ h1 span {
 .why-section.reveal-ready,
 .word-section.reveal-ready,
 .final-cta.reveal-ready {
-  transform: translate3d(0, 14px, 0) scale(0.996);
+  transform: translate3d(0, 10px, 0) scale(0.998);
 }
 
+.hero-copy.reveal-ready,
 .hero-actions .button.reveal-ready,
 .hero-stats div.reveal-ready,
 .footer-brand p.reveal-ready,
@@ -2682,15 +2684,23 @@ h1 span {
 .footer-links a.reveal-ready,
 .footer-links span.reveal-ready,
 .footer-bottom > *.reveal-ready {
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, 10px, 0);
 }
 
-.signal-rail.reveal-ready {
-  transform: translate3d(0, 14px, 0) rotate(2.8deg) scale(1.06) skewX(-4deg);
-}
-
-.signal-rail.reveal-ready.is-visible {
-  transform: rotate(2.8deg) scale(1.06) skewX(-4deg) !important;
+.showcase-copy.reveal-ready,
+.showcase-counter.reveal-ready,
+.showcase-source.reveal-ready,
+.showcase-arrow.reveal-ready,
+.service-card > div.reveal-ready,
+.service-card > a.reveal-ready,
+.package-card > *.reveal-ready,
+.review-card > *.reveal-ready,
+.quote-form > *.reveal-ready,
+.faq-item button.reveal-ready,
+.faq-item p.reveal-ready,
+.map-label.reveal-ready,
+.why-meter.reveal-ready {
+  transform: translate3d(0, 12px, 0);
 }
 
 .package-card.reveal-ready.is-visible {
@@ -2860,9 +2870,9 @@ h1 span {
   }
 
   .signal-rail {
-    width: calc(100% + 14vw);
-    margin-left: -7vw;
-    transform: rotate(3.4deg) scale(1.08) skewX(-4deg);
+    width: calc(100% + 12vw);
+    margin-left: -6vw;
+    transform: rotate(2.2deg) scale(1.05) skewX(-3deg);
   }
 
   .why-panel ul {
